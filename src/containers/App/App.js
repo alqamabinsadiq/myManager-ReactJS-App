@@ -1,9 +1,9 @@
 import React from 'react';
-
+import Navigation from '../Navigation/Navigation';
 const App = () => {
     return (
         <div>
-            Alqama Bin Sadiq
+            <Navigation />
         </div>
     );
 };

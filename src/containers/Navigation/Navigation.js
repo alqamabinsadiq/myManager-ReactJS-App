@@ -6,7 +6,9 @@ class Navigation extends Component {
     }
     render() {
         return(
-            <nav></nav>
+            <nav className="container-nav">
+               <ul><li> Alqama Bin Sadiq </li></ul>
+            </nav>
         );
     }
 }
