@@ -27,8 +27,8 @@ class LoginFormContainer extends Component {
         this.props.closeModal();
     }
     submitForm(values) {
-    console.log(values);
-  }
+        console.log(values);
+    }
     render() {
         const { handleSubmit, pristine, submitting } = this.props;
         return (
@@ -64,20 +64,23 @@ class LoginFormContainer extends Component {
 }
 
 LoginFormContainer.propTypes = {
-    closeModal: PropTypes.func
+    closeModal: PropTypes.func,
+    handleSubmit: PropTypes.func,
+    pristine: PropTypes.bool,
+    submitting: PropTypes.bool
 };
 const validate = values => {
-  const errors = {};
-  const requiredFields = ['email', 'password'];
-  requiredFields.forEach(field => {
-    if (!values[ field ]) {
-      errors[ field ] = 'Required';
+    const errors = {};
+    const requiredFields = ['email', 'password'];
+    requiredFields.forEach(field => {
+        if (!values[field]) {
+            errors[field] = 'Required';
+        }
+    });
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = 'Invalid email address';
     }
-  });
-  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address';
-  }
-  return errors;
+    return errors;
 };
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
