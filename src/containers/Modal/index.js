@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import LoginFormContainer from './LoginFormContainer';
 class Modal extends Component {
 
     constructor(props) {
@@ -11,8 +12,8 @@ class Modal extends Component {
         switch (this.props.template) {
             // case 'signup':
                // return <SignupFormContainer />;
-            // case 'login':
-               // return <LoginFormContainer />;
+             case 'login':
+                return <LoginFormContainer />;
             default: {
                 return null;
             }
