@@ -27,6 +27,7 @@ class LoginFormContainer extends Component {
         this.props.closeModal();
     }
     render() {
+        const { pristine, submitting } = this.props;
         return (
             <Dialog
                 title="Sign in to your Account"
@@ -37,11 +38,20 @@ class LoginFormContainer extends Component {
                 titleStyle={styles.title}
                 contentStyle={styles.content}
             >
-                <div>
-                    <form >
-                        <div>
+                <div style={{ flex: 1 }}>
+                    <form className="formContainer">
+                        <div className="formInputs">
                             <Field name="email" component={renderTextField} label="Email" type="text" />
                             <Field name="password" component={renderTextField} label="Password" type="password" />
+                        </div>
+                        <div className="formButtonContainer">
+                            <RaisedButton
+                                disabled={pristine || submitting}
+                                type="submit"
+                                label="Login"
+                                backgroundColor="#00AEEF"
+                                className="formSubmitButton"
+                            />
                         </div>
                     </form>
                 </div>
@@ -63,5 +73,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default reduxForm({
-  form: 'LoginForm'
+    form: 'LoginForm'
 })(connect(null, mapDispatchToProps)(LoginFormContainer));
