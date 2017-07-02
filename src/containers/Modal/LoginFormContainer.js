@@ -26,8 +26,11 @@ class LoginFormContainer extends Component {
         });
         this.props.closeModal();
     }
+    submitForm(values) {
+    console.log(values);
+  }
     render() {
-        const { pristine, submitting } = this.props;
+        const { handleSubmit, pristine, submitting } = this.props;
         return (
             <Dialog
                 title="Sign in to your Account"
@@ -39,7 +42,7 @@ class LoginFormContainer extends Component {
                 contentStyle={styles.content}
             >
                 <div style={{ flex: 1 }}>
-                    <form className="formContainer">
+                    <form onSubmit={handleSubmit(this.submitForm.bind(this))} className="formContainer">
                         <div className="formInputs">
                             <Field name="email" component={renderTextField} label="Email" type="text" />
                             <Field name="password" component={renderTextField} label="Password" type="password" />
@@ -63,7 +66,19 @@ class LoginFormContainer extends Component {
 LoginFormContainer.propTypes = {
     closeModal: PropTypes.func
 };
-
+const validate = values => {
+  const errors = {};
+  const requiredFields = ['email', 'password'];
+  requiredFields.forEach(field => {
+    if (!values[ field ]) {
+      errors[ field ] = 'Required';
+    }
+  });
+  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address';
+  }
+  return errors;
+};
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         closeModal,
@@ -73,5 +88,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default reduxForm({
-    form: 'LoginForm'
+    form: 'LoginForm',
+    validate
 })(connect(null, mapDispatchToProps)(LoginFormContainer));
