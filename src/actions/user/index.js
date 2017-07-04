@@ -16,12 +16,11 @@ export const loginUserSuccess = (user) => ({
 export const registerUser = ({email, password}, resolve) => {
   return (dispatch) => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(({ data: user }) => {
+      .then((user) => {
         // sessionStorage.setItem('userId', user.id);
         // sessionStorage.setItem('token', user.token);
         dispatch(loginUserSuccess(user));
         setTimeout(() => {
-          window.location = '/';
           dispatch(closeModal());
           resolve();
         }, 500);

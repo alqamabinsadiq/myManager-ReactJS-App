@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // Actions
 import { closeModal } from '../../actions/modal/index';
+import { registerUser } from '../../actions/user';
 // Components
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
@@ -29,10 +30,9 @@ class SignupFormContainer extends Component {
     }
 
     submitForm(values) {
-        console.log(values);
-        //  return new Promise(resolve => {
-        //  return this.props.register(values, resolve);
-        // });
+          return new Promise(resolve => {
+          return this.props.registerUser(values, resolve);
+     });
     }
 
     render() {
@@ -73,7 +73,8 @@ SignupFormContainer.propTypes = {
     closeModal: PropTypes.func,
     handleSubmit: PropTypes.func,
     pristine: PropTypes.bool,
-    submitting: PropTypes.bool
+    submitting: PropTypes.bool,
+    registerUser: PropTypes.func
 };
 
 const validate = values => {
@@ -96,6 +97,7 @@ const validate = values => {
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         closeModal,
+        registerUser
     }, dispatch);
 };
 export default connect(null, mapDispatchToProps)(reduxForm({
