@@ -13,7 +13,7 @@ class App extends Component {
     }
 
     componentWillMount() {
-        // Initialize Firebase
+        // Initializing Firebase
         const config = {
             apiKey: "AIzaSyCv1YcLZxtQLZErsuH0n7bMOfQMZMCFiyw",
             authDomain: "mymanager-bec86.firebaseapp.com",

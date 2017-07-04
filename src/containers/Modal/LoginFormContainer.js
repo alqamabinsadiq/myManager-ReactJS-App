@@ -11,6 +11,7 @@ import { styles, renderTextField } from './imports';
 
 // Actions
 import { closeModal, openModal } from '../../actions/modal/index';
+import { login } from '../../actions/user';
 
 class LoginFormContainer extends Component {
     constructor(props) {
@@ -27,7 +28,9 @@ class LoginFormContainer extends Component {
         this.props.closeModal();
     }
     submitForm(values) {
-        console.log(values);
+        return new Promise((resolve) => {
+      return this.props.login(values, resolve);
+    });
     }
     render() {
         const { handleSubmit, pristine, submitting } = this.props;
@@ -67,7 +70,8 @@ LoginFormContainer.propTypes = {
     closeModal: PropTypes.func,
     handleSubmit: PropTypes.func,
     pristine: PropTypes.bool,
-    submitting: PropTypes.bool
+    submitting: PropTypes.bool,
+    login: PropTypes.func
 };
 const validate = values => {
     const errors = {};
@@ -85,7 +89,7 @@ const validate = values => {
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         closeModal,
-        // login,
+        login,
         openModal
     }, dispatch);
 };
