@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import LoginFormContainer from './LoginFormContainer';
+import SignUpFormContainer from './SignUpFormContainer';
 class Modal extends Component {
 
     constructor(props) {
@@ -14,6 +15,8 @@ class Modal extends Component {
                // return <SignupFormContainer />;
              case 'login':
                 return <LoginFormContainer />;
+             case 'register':
+                return <SignUpFormContainer />
             default: {
                 return null;
             }
@@ -33,7 +36,7 @@ class Modal extends Component {
 
 Modal.propTypes = {
     template: PropTypes.string
-}
+};
 
 const mapStateToProps = (state) => {
     return {

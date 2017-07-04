@@ -73,6 +73,8 @@ LoginFormContainer.propTypes = {
     submitting: PropTypes.bool,
     login: PropTypes.func
 };
+
+// Here is the validation of login form.
 const validate = values => {
     const errors = {};
     const requiredFields = ['email', 'password'];
