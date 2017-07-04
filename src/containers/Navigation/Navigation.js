@@ -3,17 +3,26 @@ import AppBar from 'material-ui/AppBar';
 
 //Components
 import PublicNavigation from '../../components/Navigation/PublicNavigation';
+
+const myStyles = {
+    headerStyle: {
+        backgroundColor: 'rgba(0, 43, 49, 0.57)',
+        position: 'fixed'
+    }
+};
+
 class Navigation extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state=({
+        this.state = ({
             logged: false
         });
     }
     render() {
-        return(
+        return (
             <AppBar title="myManager"
-            iconElementRight={<PublicNavigation />}/>
+                style={myStyles.headerStyle}
+                iconElementRight={<PublicNavigation />} />
         );
     }
 }
