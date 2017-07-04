@@ -5,7 +5,8 @@ import { focus, change } from 'redux-form';
 import firebase from 'firebase';
 
 export const actions = {
-  SET_USER_TOKEN: 'SET_USER_TOKEN'
+  SET_USER_TOKEN: 'SET_USER_TOKEN',
+  LOGOUT_USER: 'LOGOUT_USER'
 };
 
 export const loginUserSuccess = (user) => ({
@@ -13,7 +14,12 @@ export const loginUserSuccess = (user) => ({
   data: user
 });
 
-export const registerUser = ({email, password}, resolve) => {
+export const logoutUser = () => ({
+  type: actions.LOGOUT_USER
+});
+
+// Register User action
+export const registerUser = ({ email, password }, resolve) => {
   return (dispatch) => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
@@ -37,6 +43,8 @@ export const registerUser = ({email, password}, resolve) => {
       });
   };
 };
+
+// Login Action
 export const login = ({ email, password }, resolve) => {
   return (dispatch) => {
     firebase.auth().signInWithEmailAndPassword(email, password)
@@ -52,7 +60,7 @@ export const login = ({ email, password }, resolve) => {
         } else {
           const notificationOpts = {
             title: 'Oops! Something went wrong.',
-            message: user.message,
+            message: 'Internet problem maybe?',
             position: 'tr',
             autoDismiss: 5
           };
@@ -69,7 +77,7 @@ export const login = ({ email, password }, resolve) => {
           position: 'tr',
           autoDismiss: 5
         };
-        dispatch(change('LoginForm','email', ''));
+        dispatch(change('LoginForm', 'email', ''));
         dispatch(change('LoginForm', 'password', ''));
         dispatch(focus('LoginForm', 'password'));
         dispatch(Notifications.error(notificationOpts));
@@ -78,19 +86,25 @@ export const login = ({ email, password }, resolve) => {
   };
 };
 
-/*
-export const loginUser = ({ email, password }) => {
+// logout action
+export const logout = () => {
   return (dispatch) => {
-    dispatch({ type: LOGIN_USER });
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(user => loginUserSuccess(dispatch, user))
-      .catch(() => {
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then(user => loginUserSuccess(dispatch, user))
-          .catch((error) => {
-            console.log(error.message);
-            loginUserFail(dispatch);
-          });
+    firebase.auth().signOut()
+      .then(() => {
+        // sessionStorage.removeItem('token');
+        // sessionStorage.removeItem('userId');
+        dispatch(logoutUser);
+        // Forcing reload to refresh navbar
+        // window.location = '/landing';
+      })
+      .catch((error) => {
+        const notificationOpts = {
+          title: 'Oops! Something went wrong',
+          message: error.message,
+          position: 'tr',
+          autoDismiss: 5
+        };
+        dispatch(Notifications.error(notificationOpts));
       });
   };
-}; */
+};
