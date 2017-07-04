@@ -1,5 +1,5 @@
 // import { replace } from 'react-router-redux';
-// import { closeModal } from '../modal/index';
+import { closeModal } from '../modal/index';
 import Notifications from 'react-notification-system-redux';
 import { focus, change } from 'redux-form';
 import firebase from 'firebase';
@@ -13,6 +13,31 @@ export const loginUserSuccess = (user) => ({
   data: user
 });
 
+export const registerUser = ({email, password}, resolve) => {
+  return (dispatch) => {
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(({ data: user }) => {
+        // sessionStorage.setItem('userId', user.id);
+        // sessionStorage.setItem('token', user.token);
+        dispatch(loginUserSuccess(user));
+        setTimeout(() => {
+          window.location = '/';
+          dispatch(closeModal());
+          resolve();
+        }, 500);
+      })
+      .catch(() => {
+        const notificationOpts = {
+          title: 'Oops! Something went wrong.',
+          message: 'internet problem maybe?',
+          position: 'tr',
+          autoDismiss: 5
+        };
+        dispatch(Notifications.error(notificationOpts));
+        resolve();
+      });
+  };
+};
 export const login = ({ email, password }, resolve) => {
   return (dispatch) => {
     firebase.auth().signInWithEmailAndPassword(email, password)
@@ -40,11 +65,14 @@ export const login = ({ email, password }, resolve) => {
       })
       .catch(() => {
         const notificationOpts = {
-          title: 'Oops! Something went wrong.',
-          message: 'internet problem maybe?',
+          title: 'Oops! User not found.',
+          message: 'please register yourself',
           position: 'tr',
           autoDismiss: 5
         };
+        dispatch(change('LoginForm','email', ''));
+        dispatch(change('LoginForm', 'password', ''));
+        dispatch(focus('LoginForm', 'password'));
         dispatch(Notifications.error(notificationOpts));
         resolve();
       });
