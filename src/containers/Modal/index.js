@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import LoginFormContainer from './LoginFormContainer';
 class Modal extends Component {
@@ -29,6 +29,10 @@ class Modal extends Component {
             </div>
         );
     }
+}
+
+Modal.propTypes = {
+    template: PropTypes.string
 }
 
 const mapStateToProps = (state) => {

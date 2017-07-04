@@ -17,13 +17,13 @@ export const login = ({ email, password }, resolve) => {
   return (dispatch) => {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then((user) => {
-        if (user.status === 200) {
+        if (user) {
           dispatch(loginUserSuccess(user));
           // sessionStorage.setItem('userId', user.id);
           // sessionStorage.setItem('token', user.token);
           // dispatch(setUserToken(user.token));
           // Forcing reload to refresh navbar
-          window.location = '/';
+          // window.location = '/';
           resolve();
         } else {
           const notificationOpts = {
@@ -51,6 +51,7 @@ export const login = ({ email, password }, resolve) => {
   };
 };
 
+/*
 export const loginUser = ({ email, password }) => {
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
@@ -65,4 +66,4 @@ export const loginUser = ({ email, password }) => {
           });
       });
   };
-};
+}; */
