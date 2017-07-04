@@ -8,7 +8,8 @@ const rootReducer = combineReducers({
   routing: routerReducer,
   modal,
   form,
-  notifications
+  notifications,
+  user
 });
 
 export default rootReducer;
