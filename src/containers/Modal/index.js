@@ -16,7 +16,7 @@ class Modal extends Component {
              case 'login':
                 return <LoginFormContainer />;
              case 'register':
-                return <SignUpFormContainer />
+                return <SignUpFormContainer />;
             default: {
                 return null;
             }

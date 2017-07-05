@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
 
 //Components
-import PublicNavigation from '../../components/Navigation/PublicNavigation';
-
+// import PublicNavigation from '../../components/Navigation/PublicNavigation';
+import UserAvatar from '../../components/User/UserAvatar';
 const myStyles = {
     headerStyle: {
         backgroundColor: 'rgba(0, 43, 49, 0.57)',
@@ -22,7 +22,7 @@ class Navigation extends Component {
         return (
             <AppBar title="myManager"
                 style={myStyles.headerStyle}
-                iconElementRight={<PublicNavigation />} />
+                iconElementRight={<UserAvatar />} />
         );
     }
 }

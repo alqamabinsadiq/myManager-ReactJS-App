@@ -45,6 +45,7 @@ class SignupFormContainer extends Component {
                 onRequestClose={this.onCloseHandler}
                 titleStyle={styles.title}
                 contentStyle={styles.content}
+                className="DialogCustomStyle"
             >
                 <div style={{ flex: 1 }}>
                     <form onSubmit={handleSubmit(this.submitForm.bind(this))} className="formContainer">

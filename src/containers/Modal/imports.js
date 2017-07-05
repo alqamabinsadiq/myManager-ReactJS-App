@@ -8,11 +8,11 @@ const titleBackgroundColor = '#172831';
 
 export const styles = {
   mainDialog: {
+    backgroundColor: 'black',
     borderRadius: 18
   },
   content: {
-    // backgroundColor: contentBackgroundColor,
-    maxWidth: 500
+    maxWidth: 500,
   },
   title: {
     textAlign: 'center',
@@ -22,7 +22,6 @@ export const styles = {
     letterSpacing: 0.5,
     padding: 15,
     marginBottom: 5,
-    borderRadius: 2,
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15
   }
