@@ -3,12 +3,15 @@ import React, { PropTypes } from 'react';
 // components
 import TextField from 'material-ui/TextField';
 // Styles
-const contentBackgroundColor = '#BCBDC0';
-const titleBackgroundColor = '#00AEEF';
+// const contentBackgroundColor = '#BCBDC0';
+const titleBackgroundColor = '#172831';
 
 export const styles = {
+  mainDialog: {
+    borderRadius: 18
+  },
   content: {
-    backgroundColor: contentBackgroundColor,
+    // backgroundColor: contentBackgroundColor,
     maxWidth: 500
   },
   title: {
@@ -19,7 +22,9 @@ export const styles = {
     letterSpacing: 0.5,
     padding: 15,
     marginBottom: 5,
-    borderRadius: 2
+    borderRadius: 2,
+    borderTopRightRadius: 15,
+    borderTopLeftRadius: 15
   }
 };
 

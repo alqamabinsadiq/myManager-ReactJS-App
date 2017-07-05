@@ -36,13 +36,14 @@ class LoginFormContainer extends Component {
         const { handleSubmit, pristine, submitting } = this.props;
         return (
             <Dialog
-                title="Sign in to your Account"
+                title="Sign in"
                 // login={this.props.login}
                 modal={false}
                 open={this.state.isOpened}
                 onRequestClose={this.onCloseHandler}
                 titleStyle={styles.title}
                 contentStyle={styles.content}
+                style={styles.mainDialog}
             >
                 <div style={{ flex: 1 }}>
                     <form onSubmit={handleSubmit(this.submitForm.bind(this))} className="formContainer">
