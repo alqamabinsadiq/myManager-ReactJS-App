@@ -24,7 +24,6 @@ export const registerUser = ({ email, password }, resolve) => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
         sessionStorage.setItem('user', user);
-        // sessionStorage.setItem('token', user.token);
         dispatch(loginUserSuccess(user));
         setTimeout(() => {
           window.location = '/';
@@ -53,8 +52,6 @@ export const login = ({ email, password }, resolve) => {
         if (user) {
           dispatch(loginUserSuccess(user));
           sessionStorage.setItem('user', user);
-          // sessionStorage.setItem('token', user.token);
-          // dispatch(setUserToken(user.token));
           // Forcing reload to refresh navbar
           window.location = '/';
           resolve();
@@ -93,7 +90,6 @@ export const logout = () => {
     firebase.auth().signOut()
       .then(() => {
         sessionStorage.removeItem('user');
-        // sessionStorage.removeItem('userId');
         dispatch(logoutUser);
         // Forcing reload to refresh navbar
         window.location = '/';

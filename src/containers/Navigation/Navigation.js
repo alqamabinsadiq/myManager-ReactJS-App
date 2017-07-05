@@ -1,5 +1,4 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
 
 //Components
@@ -35,14 +34,4 @@ class Navigation extends Component {
     }
 }
 
-Navigation.propTypes = {
-    user: PropTypes.object
-};
-
-const mapStateToProps = (state) => {
-    return {
-        user: state.user.user ? state.user.user : null
-    };
-};
-
-export default connect(mapStateToProps)(Navigation);
+export default Navigation;

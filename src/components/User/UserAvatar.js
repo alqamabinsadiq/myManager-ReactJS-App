@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 // Actions
-// import { logout, route } from '../../actions/user';
+import { logout } from '../../actions/user';
 // Components
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Avatar from 'material-ui/Avatar';
 import Logout from 'material-ui/svg-icons/action/exit-to-app';
-import Profile from 'material-ui/svg-icons/social/person'; 
+import Profile from 'material-ui/svg-icons/social/person';
 import UserPicture from '../../styles/images/user.jpg';
 // custom styles
 const styles = {
@@ -27,21 +27,25 @@ const styles = {
 };
 
 class UserAvatar extends Component {
-    constructor(props) {
-        super(props);
-        this.iconButtonElement = this._iconButtonElement.bind(this); 
-    }
+  constructor(props) {
+    super(props);
+    this.iconButtonElement = this._iconButtonElement.bind(this);
+    this.logout = this._logout.bind(this);
+  }
 
-    _iconButtonElement() {
+  _logout() {
+    this.props.logout();
+  }
+  _iconButtonElement() {
     return (
       <IconButton style={styles.noPadding}>
         <Avatar src={UserPicture} />
       </IconButton>
     );
   }
-    render() {
-        return(
-            <IconMenu
+  render() {
+    return (
+      <IconMenu
         iconButtonElement={this.iconButtonElement()}
         anchorOrigin={styles.anchor}
         targetOrigin={styles.target}
@@ -54,14 +58,24 @@ class UserAvatar extends Component {
           primaryText="Profile"
         />
         <MenuItem
-          // onClick={this.logout}
+          onClick={this.logout}
           leftIcon={
             <Logout className={styles.icon} hoverColor="#3f4f62" color="#ccc" />
           }
           primaryText="Sign out"
         />
       </IconMenu>
-        );
-    }
+    );
+  }
 }
-export default UserAvatar;
+
+UserAvatar.propTypes = {
+  logout: PropTypes.func
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    logout,
+  }, dispatch);
+};
+export default connect(null, mapDispatchToProps)(UserAvatar);
