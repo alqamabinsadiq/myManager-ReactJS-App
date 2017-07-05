@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 
 //Components
-// import PublicNavigation from '../../components/Navigation/PublicNavigation';
+import PublicNavigation from '../../components/Navigation/PublicNavigation';
 import UserAvatar from '../../components/User/UserAvatar';
 const myStyles = {
     headerStyle: {
@@ -14,17 +15,34 @@ const myStyles = {
 class Navigation extends Component {
     constructor(props) {
         super(props);
-        this.state = ({
-            logged: false
-        });
+        this.renderElement = this._renderElement.bind(this);
+    }
+
+    _renderElement() {
+        if (sessionStorage.getItem('user')) {
+            return <UserAvatar />;
+        }
+        else {
+            return <PublicNavigation />;
+        }
     }
     render() {
         return (
             <AppBar title="myManager"
                 style={myStyles.headerStyle}
-                iconElementRight={<UserAvatar />} />
+                iconElementRight={this.renderElement()} />
         );
     }
 }
 
-export default Navigation;
+Navigation.propTypes = {
+    user: PropTypes.object
+};
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.user.user ? state.user.user : null
+    };
+};
+
+export default connect(mapStateToProps)(Navigation);

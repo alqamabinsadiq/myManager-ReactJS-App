@@ -23,10 +23,11 @@ export const registerUser = ({ email, password }, resolve) => {
   return (dispatch) => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
-        // sessionStorage.setItem('userId', user.id);
+        sessionStorage.setItem('user', user);
         // sessionStorage.setItem('token', user.token);
         dispatch(loginUserSuccess(user));
         setTimeout(() => {
+          window.location = '/';
           dispatch(closeModal());
           resolve();
         }, 500);
@@ -51,11 +52,11 @@ export const login = ({ email, password }, resolve) => {
       .then((user) => {
         if (user) {
           dispatch(loginUserSuccess(user));
-          // sessionStorage.setItem('userId', user.id);
+          sessionStorage.setItem('user', user);
           // sessionStorage.setItem('token', user.token);
           // dispatch(setUserToken(user.token));
           // Forcing reload to refresh navbar
-          // window.location = '/';
+          window.location = '/';
           resolve();
         } else {
           const notificationOpts = {
@@ -91,11 +92,11 @@ export const logout = () => {
   return (dispatch) => {
     firebase.auth().signOut()
       .then(() => {
-        // sessionStorage.removeItem('token');
+        sessionStorage.removeItem('user');
         // sessionStorage.removeItem('userId');
         dispatch(logoutUser);
         // Forcing reload to refresh navbar
-        // window.location = '/landing';
+        window.location = '/';
       })
       .catch((error) => {
         const notificationOpts = {
