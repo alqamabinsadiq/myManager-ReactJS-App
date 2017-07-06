@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import firebase from 'firebase';
 // Components
 import Navigation from '../Navigation/Navigation';
-import LandingComponent from '../../components/Landing/Landing';
+// import LandingComponent from '../../components/Landing/Landing';
+import NotesBoard from '../Board/Board';
 import ModalContainer from '../Modal';
 import NotificationContainer from '../Notification/NotificationContainer';
 
@@ -31,7 +32,7 @@ class App extends Component {
                 <ModalContainer />
                 <NotificationContainer />
                 <div className="mainContentBody">
-                    <LandingComponent />
+                    <NotesBoard />
                 </div>
             </div>
         );

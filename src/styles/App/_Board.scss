@@ -12,3 +12,12 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eab92d', endColorstr='#c79810', GradientType=1);
     position: fixed;
 }
+
+.notesBoard-plusButtonContainer{
+    position: fixed;
+    top: 84px;
+    right: 20px;
+    button {
+    background-color: #a8a675 !important;
+    }
+}
