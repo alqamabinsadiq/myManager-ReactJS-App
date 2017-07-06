@@ -28,7 +28,7 @@ class Note extends Component {
 }
 
 Note.propTypes = {
-    children: PropTypes.string
+    children: PropTypes.array
 };
 
 export default Note;

@@ -32,7 +32,7 @@ class App extends Component {
                 <ModalContainer />
                 <NotificationContainer />
                 <div className="mainContentBody">
-                    <NotesBoard />
+                    <NotesBoard count={10} />
                 </div>
             </div>
         );
