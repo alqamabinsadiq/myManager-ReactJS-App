@@ -11,9 +11,9 @@ class Board extends Component {
         this.addNote = this._addNote.bind(this);
         this.eachNote = this._eachNote.bind(this);
         // this.nextId = this._nextId.bind(this);
-        // this.state = {
-        //    notes: []
-        // };
+        this.state = {
+            notes: []
+        };
     }
 
     nextId() {
@@ -27,7 +27,7 @@ class Board extends Component {
             id: this.nextId(),
             note: text
         });
-        this.setState({notes: arr});
+        this.setState({ notes: arr });
     }
 
     _eachNote(note, i) {
@@ -39,11 +39,11 @@ class Board extends Component {
     }
 
     render() {
-        console.log(this.state.notes);
         return (
             <div className="notesBoard">
-                <FloatingActionButton className="notesBoard-plusButtonContainer">
-                    <ContentAdd className="notesBoard-plusButton" onClick={this.addNote('note')} />
+                {this.state.notes.map(this.eachNote)}
+                <FloatingActionButton className="notesBoard-plusButtonContainer" onClick={() => this.addNote('New Text')} >
+                    <ContentAdd className="notesBoard-plusButton" />
                 </FloatingActionButton>
             </div>
         );
