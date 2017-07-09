@@ -4,6 +4,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
+import firebase from 'firebase';
 //import { AppContainer } from 'react-hot-loader';
 // import Root from './components/Root';
 import routes from './routes';
@@ -18,6 +19,16 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
+// Initializing Firebase
+        const config = {
+            apiKey: "AIzaSyCv1YcLZxtQLZErsuH0n7bMOfQMZMCFiyw",
+            authDomain: "mymanager-bec86.firebaseapp.com",
+            databaseURL: "https://mymanager-bec86.firebaseio.com",
+            projectId: "mymanager-bec86",
+            storageBucket: "mymanager-bec86.appspot.com",
+            messagingSenderId: "485887851803"
+        };
+        firebase.initializeApp(config);
 
 const store = configureStore();
 

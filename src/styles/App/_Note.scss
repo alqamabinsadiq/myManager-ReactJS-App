@@ -1,5 +1,10 @@
-
-div.note {
+.notes_IconButton{
+    width: 29px !important;
+    height: 26px !important;
+    padding: 0px !important;
+    border: 1px !important;
+}
+.note {
     height: 200px;
     width: 200px;
     background-color: #ffffa2;
@@ -21,21 +26,20 @@ div.note {
     justify-content: space-between;
 }
 
-div.note:active {
+.note:active {
     cursor: -webkit-grabbing;
 }
-
-div.note p {
+.note p {
     font-size: 22px;
     padding: 5px;
     font-family: "Shadows Into Light", Arial;
 }
 
-div.note:hover > span {
+.note:hover > span {
     opacity: 1;
 }
 
-div.note > span {
+.note > span {
     position: absolute;
     bottom: 2px;
     right: 2px;
@@ -43,11 +47,11 @@ div.note > span {
     transition: opacity .25s linear;
 }
 
-div.note button {
+.note button {
     margin: 2px;
 }
 
-div.note > textarea {
+.note > textarea {
     height: 75%;
     background: rgba(255, 255, 255, .5);
 }

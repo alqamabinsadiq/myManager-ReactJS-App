@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
-import firebase from 'firebase';
+import React, { Component, PropTypes } from 'react';
 // Components
 import Navigation from '../Navigation/Navigation';
-// import LandingComponent from '../../components/Landing/Landing';
-import NotesBoard from '../Board/Board';
+import LandingComponent from '../../components/Landing/Landing';
 import ModalContainer from '../Modal';
 import NotificationContainer from '../Notification/NotificationContainer';
 
@@ -14,16 +12,7 @@ class App extends Component {
     }
 
     componentWillMount() {
-        // Initializing Firebase
-        const config = {
-            apiKey: "AIzaSyCv1YcLZxtQLZErsuH0n7bMOfQMZMCFiyw",
-            authDomain: "mymanager-bec86.firebaseapp.com",
-            databaseURL: "https://mymanager-bec86.firebaseio.com",
-            projectId: "mymanager-bec86",
-            storageBucket: "mymanager-bec86.appspot.com",
-            messagingSenderId: "485887851803"
-        };
-        firebase.initializeApp(config);
+        
     }
     render() {
         return (
@@ -32,11 +21,15 @@ class App extends Component {
                 <ModalContainer />
                 <NotificationContainer />
                 <div className="mainContentBody">
-                    <NotesBoard count={10} />
+                    {this.props.children ? this.props.children : <LandingComponent />} 
                 </div>
             </div>
         );
     }
 }
+
+App.propTypes = {
+    children: PropTypes.element
+};
 
 export default App;

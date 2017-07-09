@@ -2,6 +2,7 @@
 import { closeModal } from '../modal/index';
 import Notifications from 'react-notification-system-redux';
 import { focus, change } from 'redux-form';
+import { push } from 'react-router-redux';
 import firebase from 'firebase';
 
 export const actions = {
@@ -9,7 +10,7 @@ export const actions = {
   LOGOUT_USER: 'LOGOUT_USER'
 };
 
-export const loginUserSuccess = (user) => ({
+export const setUserToken = (user) => ({
   type: actions.SET_USER_TOKEN,
   data: user
 });
@@ -23,10 +24,10 @@ export const registerUser = ({ email, password }, resolve) => {
   return (dispatch) => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
-        sessionStorage.setItem('user', user);
-        dispatch(loginUserSuccess(user));
+        sessionStorage.setItem('user', user.uid);
+        dispatch(setUserToken(user));
+        dispatch(push('/board'));
         setTimeout(() => {
-          window.location = '/';
           dispatch(closeModal());
           resolve();
         }, 500);
@@ -50,10 +51,10 @@ export const login = ({ email, password }, resolve) => {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then((user) => {
         if (user) {
-          dispatch(loginUserSuccess(user));
-          sessionStorage.setItem('user', user);
-          // Forcing reload to refresh navbar
-          window.location = '/';
+          dispatch(setUserToken(user));
+          sessionStorage.setItem('user', user.uid);
+          dispatch(push('/board'));
+          dispatch(closeModal());
           resolve();
         } else {
           const notificationOpts = {
