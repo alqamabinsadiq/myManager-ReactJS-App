@@ -10,7 +10,6 @@ class Board extends Component {
         super(props);
         this.addNote = this._addNote.bind(this);
         this.eachNote = this._eachNote.bind(this);
-        // this.nextId = this._nextId.bind(this);
         this.state = {
             notes: []
         };
@@ -41,7 +40,9 @@ class Board extends Component {
     render() {
         return (
             <div className="notesBoard">
+                <div className="notesContainer">
                 {this.state.notes.map(this.eachNote)}
+                </div>
                 <FloatingActionButton className="notesBoard-plusButtonContainer" onClick={() => this.addNote('New Text')} >
                     <ContentAdd className="notesBoard-plusButton" />
                 </FloatingActionButton>

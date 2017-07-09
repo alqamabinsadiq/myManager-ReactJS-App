@@ -10,9 +10,16 @@
     background: -ms-radial-gradient(center, ellipse cover, #eab92d 57%, #c79810 99%);
     background: radial-gradient(ellipse at center, #eab92d 57%, #c79810 99%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eab92d', endColorstr='#c79810', GradientType=1);
-    position: fixed;
+    position: relative;
+    padding: 5px;
+    padding-top: 65px;
 }
 
+.notesContainer {
+        height: 100%;
+        width: 100%;
+        position: relative;
+    }
 .notesBoard-plusButtonContainer{
     position: fixed;
     top: 84px;

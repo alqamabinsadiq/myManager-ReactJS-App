@@ -1,12 +1,24 @@
+
 div.note {
-    height: 150px;
-    width: 150px;
+    height: 200px;
+    width: 200px;
     background-color: #ffffa2;
     margin: 2px 0;
     position: absolute;
     cursor: -webkit-grab;
     -webkit-box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, .2);
     box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, .2);
+}
+#contentTitle{
+    background-color: rgba(216, 216, 137, 0.59);;
+    font-size: 22px;
+    padding-top: 5px;
+    padding-left:3px;
+    font-family: "Shadows Into Light", Arial;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 div.note:active {
