@@ -8,7 +8,7 @@ import Home from './components/Landing/Landing';
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={App}/>
-    <Route path = "/" component = {Home} />
+    <Route path = "/home" component = {Home} />
     <Route path = "board" component = {NotesBoard} />
   </Route>
 );
