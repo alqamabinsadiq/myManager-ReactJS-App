@@ -33,13 +33,8 @@ class PublicNavigation extends Component {
     }
 }
 
-const mapStateToProps = () => {
-    return {
-    };
-};
-
 PublicNavigation.propTypes = {
     openModal: PropTypes.func
 };
 
-export default connect(mapStateToProps, { openModal })(PublicNavigation);
+export default connect(null, { openModal })(PublicNavigation);

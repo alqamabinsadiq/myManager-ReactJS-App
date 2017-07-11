@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import LoginFormContainer from './LoginFormContainer';
 import SignUpFormContainer from './SignUpFormContainer';
+import EditNoteModalContainer from './EditNoteModalContainer';
 class Modal extends Component {
 
     constructor(props) {
@@ -17,6 +18,8 @@ class Modal extends Component {
                 return <LoginFormContainer />;
              case 'register':
                 return <SignUpFormContainer />;
+            case 'editNote':
+                return <EditNoteModalContainer />;
             default: {
                 return null;
             }
