@@ -45,8 +45,8 @@ class LoginFormContainer extends Component {
                 <div style={{ flex: 1 }}>
                     <form onSubmit={handleSubmit(this.submitForm.bind(this))} className="formContainer">
                         <div className="formInputs">
-                            <Field name="email" component={renderTextField} label="Title" type="text" />
-                            <Field name="password" component={renderTextField} label="Note" type="text" />
+                            <Field name="title" component={renderTextField} label="Title" type="text" />
+                            <Field name="note" component={renderTextField} label="Note" type="text" />
                         </div>
                         <div className="formButtonContainer">
                             <RaisedButton
@@ -72,18 +72,15 @@ LoginFormContainer.propTypes = {
     login: PropTypes.func
 };
 
-// Here is the validation of login form.
+// Here is the validation of Edit note form.
 const validate = values => {
     const errors = {};
-    const requiredFields = ['email', 'password'];
+    const requiredFields = ['title'];
     requiredFields.forEach(field => {
         if (!values[field]) {
             errors[field] = 'Required';
         }
     });
-    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address';
-    }
     return errors;
 };
 const mapDispatchToProps = (dispatch) => {
