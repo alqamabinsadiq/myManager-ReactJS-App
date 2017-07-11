@@ -10,6 +10,7 @@ class Board extends Component {
         super(props);
         this.addNote = this._addNote.bind(this);
         this.eachNote = this._eachNote.bind(this);
+        this.remove = this._remove.bind(this);
         this.user = JSON.parse(localStorage.getItem('user'));
         this.state = {
             notes: [],
@@ -53,6 +54,15 @@ class Board extends Component {
         this.uniqueId = this.uniqueId || 0;
         return this.uniqueId++;
     }
+
+    // Removes a note.
+    _remove(i) {
+        let notesArray = this.state.notes;
+        firebase.database().ref('users').child(this.user.uid).child('notes').child(notesArray[i].id).remove();
+        notesArray.splice(i, 1);
+        this.setState({ notes: notesArray });
+    }
+
     // Add a note directly to firebase database.
     _addNote(text) {
         firebase.database().ref('users').child(this.user.uid).child('notes').push({
@@ -66,6 +76,7 @@ class Board extends Component {
             <Note key={note.id}
                 index={i}
                 title={note.title}
+                onRemove={this.remove}
             > {note.note} </Note>
         );
     }
