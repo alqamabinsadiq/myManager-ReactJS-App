@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import firebase from 'firebase';
 import Draggable from 'react-draggable';
 import IconButton from 'material-ui/IconButton';
 import ActionDelete from 'material-ui/svg-icons/action/delete-forever';
@@ -21,7 +20,6 @@ class Note extends Component {
     }
 
     render() {
-        console.log(firebase.auth().currentUser);
         return (
             <Draggable bounds="parent">
                 <div className="note handle"

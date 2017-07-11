@@ -24,7 +24,7 @@ export const registerUser = ({ email, password }, resolve) => {
   return (dispatch) => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
-        sessionStorage.setItem('user', user.uid);
+        localStorage.setItem('user', JSON.stringify(user));
         dispatch(setUserToken(user));
         dispatch(push('/board'));
         setTimeout(() => {
@@ -52,7 +52,7 @@ export const login = ({ email, password }, resolve) => {
       .then((user) => {
         if (user) {
           dispatch(setUserToken(user));
-          sessionStorage.setItem('user', user.uid);
+          localStorage.setItem('user', JSON.stringify(user));
           dispatch(push('/board'));
           dispatch(closeModal());
           resolve();
@@ -90,7 +90,7 @@ export const logout = () => {
   return (dispatch) => {
     firebase.auth().signOut()
       .then(() => {
-        sessionStorage.removeItem('user');
+        localStorage.removeItem('user');
         dispatch(logoutUser);
         // Forcing reload to refresh navbar
         window.location = '/';

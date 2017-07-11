@@ -10,34 +10,18 @@ class Board extends Component {
         super(props);
         this.addNote = this._addNote.bind(this);
         this.eachNote = this._eachNote.bind(this);
+        this.user = JSON.parse(localStorage.getItem('user'));
         this.state = {
             notes: [],
             user: null
         };
     }
-    componentWillMount() {
-        // getting current user from firebase.
-        if (firebase.auth().currentUser) {
-            console.log(firebase.auth().currentUser);
-        }
-        else {
-            // Initializing Firebase
-            const config = {
-                apiKey: "AIzaSyCv1YcLZxtQLZErsuH0n7bMOfQMZMCFiyw",
-                authDomain: "mymanager-bec86.firebaseapp.com",
-                databaseURL: "https://mymanager-bec86.firebaseio.com",
-                projectId: "mymanager-bec86",
-                storageBucket: "mymanager-bec86.appspot.com",
-                messagingSenderId: "485887851803"
-            };
-            firebase.initializeApp(config);
-        }
-    }
+
     componentDidMount() {
-        // getting current user from firebase.
-        let user = firebase.auth().currentUser;
-        console.log(user);
-        //Database reference
+        // Getting user from localStorage.
+        let user = JSON.parse(localStorage.getItem('user'));
+
+        // Database reference
         const dbRef = firebase.database().ref('users').child(user.uid).child('notes');
 
         // Getting notes from firebase database.
@@ -71,17 +55,10 @@ class Board extends Component {
     }
     // Add a note directly to firebase database.
     _addNote(text) {
-        firebase.database().ref('users').child(this.state.user.uid).child('notes').push({
+        firebase.database().ref('users').child(this.user.uid).child('notes').push({
             note: text,
             title: "Enter a title"
         });
-        // let arr = this.state.notes;
-        // arr.push({
-        //     id: this.nextId(),
-        //     note: text,
-        //     title: title
-        // });
-        // this.setState({ notes: arr });
     }
 
     _eachNote(note, i) {

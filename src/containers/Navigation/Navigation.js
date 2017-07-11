@@ -18,7 +18,7 @@ class Navigation extends Component {
     }
 
     _renderElement() {
-        if (sessionStorage.getItem('user')) {
+        if (localStorage.getItem('user')) {
             return <UserAvatar />;
         }
         else {
