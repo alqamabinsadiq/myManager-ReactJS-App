@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import firebase from 'firebase';
+import { connect } from 'react-redux';
 // material-ui components
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Note from '../../components/Note/Note';
+import { getNotes } from '../../actions/notes';
 
 class Board extends Component {
     constructor(props) {
@@ -19,6 +21,7 @@ class Board extends Component {
     }
 
     componentDidMount() {
+        this.props.getNotes();
         // Getting user from localStorage.
         let user = JSON.parse(localStorage.getItem('user'));
 
@@ -95,7 +98,8 @@ class Board extends Component {
     }
 }
 Board.propTypes = {
-    setUserToken: PropTypes.func
+    setUserToken: PropTypes.func,
+    getNotes: PropTypes.func
 };
 
-export default Board;
+export default connect(null, { getNotes })(Board);
