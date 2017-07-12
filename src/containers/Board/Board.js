@@ -19,27 +19,45 @@ class Board extends Component {
             user: null
         };
     }
-
-    componentDidMount() {
-        this.props.getNotes();
-        // Getting user from localStorage.
-        let user = JSON.parse(localStorage.getItem('user'));
-
-        // Database reference
-        const dbRef = firebase.database().ref('users').child(user.uid).child('notes');
-
-        // Getting notes from firebase database.
-        dbRef.on('child_added', snap => {
-            let dbNotes = [];
-            dbNotes = snap.val();
-            let notesArray = this.createArray(snap.key.toString(), dbNotes.note, dbNotes.title);
-
+    componentWillMount() {
+        new Promise((resolve) => {
+            this.props.getNotes();
+            resolve();
+        }).then(
             this.setState({
-                notes: notesArray
+                notes: this.props.allNotes
+            })
+            );
+        // this.props.getNotes();
+        console.log(this.state.allNotes);
+    }
+    componentDidMount() {
+        // // Getting user from localStorage.
+        // let user = JSON.parse(localStorage.getItem('user'));
+
+        // // Database reference
+        // const dbRef = firebase.database().ref('users').child(user.uid).child('notes');
+
+        // // Getting notes from firebase database.
+        // dbRef.on('child_added', snap => {
+        //     let dbNotes = [];
+        //     dbNotes = snap.val();
+        //     let notesArray = this.createArray(snap.key.toString(), dbNotes.note, dbNotes.title);
+
+        //     this.setState({
+        //         notes: notesArray
+        //     });
+
+        // });
+
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.allNotes !== this.props.allNotes) {
+            console.log(nextProps.allNotes);
+            this.setState({
+                notes: nextProps.allNotes
             });
-
-        });
-
+        }
     }
 
     createArray(id, text, title) {
@@ -99,7 +117,14 @@ class Board extends Component {
 }
 Board.propTypes = {
     setUserToken: PropTypes.func,
-    getNotes: PropTypes.func
+    getNotes: PropTypes.func,
+    allNotes: PropTypes.array
 };
 
-export default connect(null, { getNotes })(Board);
+const mapStateToProps = (state) => {
+    return {
+        allNotes: state.notes.allNotes
+    };
+};
+
+export default connect(mapStateToProps, { getNotes })(Board);
