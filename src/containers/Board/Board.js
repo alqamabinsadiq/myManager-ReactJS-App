@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 // material-ui components
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import CircularProgress from 'material-ui/CircularProgress';
 import Note from '../../components/Note/Note';
 import { getNotes } from '../../actions/notes';
 
@@ -23,13 +24,13 @@ class Board extends Component {
         new Promise((resolve) => {
             this.props.getNotes();
             resolve();
+            console.log(this.props.allNotes);
         }).then(
             this.setState({
                 notes: this.props.allNotes
             })
-            );
+        );
         // this.props.getNotes();
-        console.log(this.state.allNotes);
     }
     componentDidMount() {
         // // Getting user from localStorage.
@@ -53,9 +54,9 @@ class Board extends Component {
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.allNotes !== this.props.allNotes) {
-            console.log(nextProps.allNotes);
+            let notesArray = nextProps.allNotes;
             this.setState({
-                notes: nextProps.allNotes
+                notes: notesArray
             });
         }
     }
@@ -103,16 +104,26 @@ class Board extends Component {
     }
 
     render() {
-        return (
-            <div className="notesBoard">
-                <div className="notesContainer">
-                    {this.state.notes.map(this.eachNote)}
+        if (!this.props.allNotes)
+            return (
+                <div className="notesBoard">
+                    <div className="notesContainer">
+                        <CircularProgress />
+                    </div>
                 </div>
-                <FloatingActionButton className="notesBoard-plusButtonContainer" onClick={() => this.addNote('New Text')} >
-                    <ContentAdd className="notesBoard-plusButton" />
-                </FloatingActionButton>
-            </div>
-        );
+            );
+        else {
+            return (
+                <div className="notesBoard">
+                    <div className="notesContainer">
+                        {this.state.notes.map(this.eachNote)}
+                    </div>
+                    <FloatingActionButton className="notesBoard-plusButtonContainer" onClick={() => this.addNote('New Text')} >
+                        <ContentAdd className="notesBoard-plusButton" />
+                    </FloatingActionButton>
+                </div>
+            );
+        }
     }
 }
 Board.propTypes = {
