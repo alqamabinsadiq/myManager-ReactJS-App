@@ -39,8 +39,8 @@ export const getNotes = () => {
     };
 };
 
-// export const setCurrentNote = ({index, title, note}) => {
-//     return(dispatch) => {
-
-//     };
-// };
+// Set Current Note
+export const setCurrentNote = (note) => ({
+    type: actions.SET_CURRENT_NOTE,
+    data: note
+});
