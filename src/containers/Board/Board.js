@@ -8,6 +8,8 @@ import CircularProgress from 'material-ui/CircularProgress';
 import Note from '../../components/Note/Note';
 import { getNotes } from '../../actions/notes';
 
+let individualNote = [];
+
 class Board extends Component {
     constructor(props) {
         super(props);
@@ -53,11 +55,15 @@ class Board extends Component {
 
     }
     componentWillReceiveProps(nextProps) {
+        var that = this;
+        console.log(nextProps);
         if (nextProps.allNotes !== this.props.allNotes) {
             let notesArray = nextProps.allNotes;
-            this.setState({
-                notes: notesArray
-            });
+            setTimeout( () => {
+                that.setState({
+                    notes: notesArray
+                });
+            },20 )
         }
     }
 
@@ -93,14 +99,19 @@ class Board extends Component {
         });
     }
 
-    _eachNote(note, i) {
-        return (
-            <Note key={note.id}
+    _eachNote() {
+        if(this.state.notes){
+        this.state.notes.map((note, i) => {
+            individualNote.push(
+                 <Note className="animated fadeIn" key={note.id}
                 index={i}
                 title={note.title}
                 onRemove={this.remove}
             > {note.note} </Note>
-        );
+          );  
+        });
+        }
+        return individualNote;
     }
 
     render() {
@@ -116,7 +127,7 @@ class Board extends Component {
             return (
                 <div className="notesBoard">
                     <div className="notesContainer">
-                        {this.state.notes.map(this.eachNote)}
+                        {this.eachNote()}
                     </div>
                     <FloatingActionButton className="notesBoard-plusButtonContainer" onClick={() => this.addNote('New Text')} >
                         <ContentAdd className="notesBoard-plusButton" />

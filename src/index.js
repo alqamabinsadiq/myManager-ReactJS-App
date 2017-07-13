@@ -8,6 +8,7 @@ import firebase from 'firebase';
 //import { AppContainer } from 'react-hot-loader';
 // import Root from './components/Root';
 import routes from './routes';
+import 'animate.css';
 import configureStore from './store/configureStore';
 require('./favicon.ico'); // Tell webpack to load favicon.ico
 import './styles/main.scss'; // Yep, that's right. You can import SASS/CSS files too! Webpack will run the associated loader and plug this into the page.
