@@ -1,14 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import firebase from 'firebase';
-import { connect } from 'react-redux';
 // material-ui components
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import CircularProgress from 'material-ui/CircularProgress';
 import Note from '../../components/Note/Note';
-import { getNotes } from '../../actions/notes';
-
-let individualNote = [];
 
 class Board extends Component {
     constructor(props) {
@@ -22,50 +18,28 @@ class Board extends Component {
             user: null
         };
     }
-    componentWillMount() {
-        new Promise((resolve) => {
-            this.props.getNotes();
-            resolve();
-            console.log(this.props.allNotes);
-        }).then(
-            this.setState({
-                notes: this.props.allNotes
-            })
-        );
-        // this.props.getNotes();
-    }
+
     componentDidMount() {
-        // // Getting user from localStorage.
-        // let user = JSON.parse(localStorage.getItem('user'));
+        // Getting user from localStorage.
+        let user = JSON.parse(localStorage.getItem('user'));
 
-        // // Database reference
-        // const dbRef = firebase.database().ref('users').child(user.uid).child('notes');
+        // Database reference
+        const dbRef = firebase.database().ref('users').child(user.uid).child('notes');
 
-        // // Getting notes from firebase database.
-        // dbRef.on('child_added', snap => {
-        //     let dbNotes = [];
-        //     dbNotes = snap.val();
-        //     let notesArray = this.createArray(snap.key.toString(), dbNotes.note, dbNotes.title);
+        // Getting notes from firebase database.
+        dbRef.on('child_added', snap => {
+            let dbNotes = [];
+            dbNotes = snap.val();
+            let notesArray = this.createArray(snap.key.toString(), dbNotes.note, dbNotes.title);
 
-        //     this.setState({
-        //         notes: notesArray
-        //     });
+            this.setState({
+                notes: notesArray
+            });
 
-        // });
+        });
 
     }
-    componentWillReceiveProps(nextProps) {
-        var that = this;
-        console.log(nextProps);
-        if (nextProps.allNotes !== this.props.allNotes) {
-            let notesArray = nextProps.allNotes;
-            setTimeout( () => {
-                that.setState({
-                    notes: notesArray
-                });
-            },20 )
-        }
-    }
+
 
     createArray(id, text, title) {
         let notesArray = this.state.notes;
@@ -99,23 +73,19 @@ class Board extends Component {
         });
     }
 
-    _eachNote() {
-        if(this.state.notes){
-        this.state.notes.map((note, i) => {
-            individualNote.push(
-                 <Note className="animated fadeIn" key={note.id}
+    _eachNote(note, i) {
+        return (
+            <Note key={note.id}
                 index={i}
-                title={note.title}
+                onChange={this.update}
                 onRemove={this.remove}
-            > {note.note} </Note>
-          );  
-        });
-        }
-        return individualNote;
+                title={note.title}
+            >{note.note}</Note>
+        );
     }
 
     render() {
-        if (!this.props.allNotes)
+        if (this.state.notes === null)
             return (
                 <div className="notesBoard">
                     <div className="notesContainer">
@@ -127,7 +97,7 @@ class Board extends Component {
             return (
                 <div className="notesBoard">
                     <div className="notesContainer">
-                        {this.eachNote()}
+                        {this.state.notes.map(this.eachNote)}
                     </div>
                     <FloatingActionButton className="notesBoard-plusButtonContainer" onClick={() => this.addNote('New Text')} >
                         <ContentAdd className="notesBoard-plusButton" />
@@ -143,10 +113,4 @@ Board.propTypes = {
     allNotes: PropTypes.array
 };
 
-const mapStateToProps = (state) => {
-    return {
-        allNotes: state.notes.allNotes
-    };
-};
-
-export default connect(mapStateToProps, { getNotes })(Board);
+export default Board;
