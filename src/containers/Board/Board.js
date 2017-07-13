@@ -80,6 +80,7 @@ class Board extends Component {
                 onChange={this.update}
                 onRemove={this.remove}
                 title={note.title}
+                note={note}
             >{note.note}</Note>
         );
     }
