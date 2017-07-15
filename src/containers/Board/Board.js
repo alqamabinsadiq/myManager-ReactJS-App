@@ -8,8 +8,6 @@ import CircularProgress from 'material-ui/CircularProgress';
 import Note from '../../components/Note/Note';
 import { getNotes } from '../../actions/notes';
 
-let individualNote = [];
-
 class Board extends Component {
     constructor(props) {
         super(props);
@@ -54,12 +52,10 @@ class Board extends Component {
 
     }
     componentWillReceiveProps(nextProps) {
-        var that = this;
-        console.log(nextProps);
         if (nextProps.allNotes !== this.props.allNotes) {
             let notesArray = nextProps.allNotes;
             setTimeout( () => {
-                that.setState({
+                this.setState({
                     notes: notesArray
                 });
             },20 );
@@ -98,23 +94,17 @@ class Board extends Component {
         });
     }
 
-    _eachNote() {
-        if(this.state.notes){
-        this.state.notes.map((note, i) => {
-            individualNote.push(
-                 <Note className="animated fadeIn" key={note.get("id")}
+    _eachNote(note,i) {
+        return (
+            <Note key={note.get("id")}
                 index={i}
-                title={note.get("title")}
                 onRemove={this.remove}
-            > {note.get("note")} </Note>
-          );  
-        });
-        }
-        return individualNote;
+                title={note.get("title")}
+            >{note.get("note")}</Note>
+        );
     }
 
     render() {
-        console.log(this.state.notes.getIn([0, "id"]));
         if (!this.props.allNotes)
             return (
                 <div className="notesBoard">
@@ -127,7 +117,7 @@ class Board extends Component {
             return (
                 <div className="notesBoard">
                     <div className="notesContainer">
-                        {this.eachNote()}
+                        {this.state.notes.map(this.eachNote)}
                     </div>
                     <FloatingActionButton className="notesBoard-plusButtonContainer" onClick={() => this.addNote('New Text')} >
                         <ContentAdd className="notesBoard-plusButton" />
