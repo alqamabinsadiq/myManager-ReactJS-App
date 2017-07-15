@@ -17,7 +17,8 @@ class Board extends Component {
         this.user = JSON.parse(localStorage.getItem('user'));
         this.state = {
             notes: [],
-            user: null
+            user: null,
+            loading: true
         };
     }
     componentWillMount() {
@@ -32,33 +33,18 @@ class Board extends Component {
         // this.props.getNotes();
     }
     componentDidMount() {
-        // // Getting user from localStorage.
-        // let user = JSON.parse(localStorage.getItem('user'));
-
-        // // Database reference
-        // const dbRef = firebase.database().ref('users').child(user.uid).child('notes');
-
-        // // Getting notes from firebase database.
-        // dbRef.on('child_added', snap => {
-        //     let dbNotes = [];
-        //     dbNotes = snap.val();
-        //     let notesArray = this.createArray(snap.key.toString(), dbNotes.note, dbNotes.title);
-
-        //     this.setState({
-        //         notes: notesArray
-        //     });
-
-        // });
+        if(!this.props.allNotes){
+            this.setState({loading: false});
+        }
 
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.allNotes !== this.props.allNotes) {
             let notesArray = nextProps.allNotes;
-            setTimeout( () => {
                 this.setState({
+                    loading: false,
                     notes: notesArray
                 });
-            },20 );
         }
     }
 
@@ -108,7 +94,8 @@ class Board extends Component {
     }
 
     render() {
-        if (!this.props.allNotes)
+        console.log(this.state.loading);
+        if (this.state.loading)
             return (
                 <div className="notesBoard">
                     <div className="notesContainer">
@@ -120,7 +107,7 @@ class Board extends Component {
             return (
                 <div className="notesBoard">
                     <div className="notesContainer">
-                        {this.state.notes.map(this.eachNote)}
+                        {this.state.notes ? this.state.notes.map(this.eachNote): null}
                     </div>
                     <FloatingActionButton className="notesBoard-plusButtonContainer" onClick={() => this.addNote('New Text')} >
                         <ContentAdd className="notesBoard-plusButton" />
