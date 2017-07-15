@@ -26,7 +26,6 @@ class Board extends Component {
         new Promise((resolve) => {
             this.props.getNotes();
             resolve();
-            console.log(this.props.allNotes);
         }).then(
             this.setState({
                 notes: this.props.allNotes
@@ -63,7 +62,7 @@ class Board extends Component {
                 that.setState({
                     notes: notesArray
                 });
-            },20 )
+            },20 );
         }
     }
 
@@ -103,11 +102,11 @@ class Board extends Component {
         if(this.state.notes){
         this.state.notes.map((note, i) => {
             individualNote.push(
-                 <Note className="animated fadeIn" key={note.id}
+                 <Note className="animated fadeIn" key={note.get("id")}
                 index={i}
-                title={note.title}
+                title={note.get("title")}
                 onRemove={this.remove}
-            > {note.note} </Note>
+            > {note.get("note")} </Note>
           );  
         });
         }
@@ -115,6 +114,7 @@ class Board extends Component {
     }
 
     render() {
+        console.log(this.state.notes.getIn([0, "id"]));
         if (!this.props.allNotes)
             return (
                 <div className="notesBoard">
@@ -140,12 +140,12 @@ class Board extends Component {
 Board.propTypes = {
     setUserToken: PropTypes.func,
     getNotes: PropTypes.func,
-    allNotes: PropTypes.array
+    allNotes: PropTypes.object
 };
 
 const mapStateToProps = (state) => {
     return {
-        allNotes: state.notes.allNotes
+        allNotes: state.notes.get("allNotes")
     };
 };
 
