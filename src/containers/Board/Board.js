@@ -68,10 +68,7 @@ class Board extends Component {
     _remove(i) {
         let notesArray = this.state.notes;
         firebase.database().ref('users').child(this.user.uid).child('notes').child((notesArray.getIn([i,"id"]))).remove();
-        //notesArray.splice(i, 1);
-        console.log(notesArray);
         const newNotesArray = notesArray.delete(i);
-        console.log(newNotesArray);
         this.setState({ notes: newNotesArray });
     }
 

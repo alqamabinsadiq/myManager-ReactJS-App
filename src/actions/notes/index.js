@@ -33,9 +33,21 @@ export const getNotes = () => {
         dbRef.on('child_added', snap => {
             let dbNotes = [];
             dbNotes = snap.val();
-            let notesArray= createArray(snap.key.toString(), dbNotes.note, dbNotes.title);
+            let notesArray = createArray(snap.key.toString(), dbNotes.note, dbNotes.title);
             dispatch(setNotes(notesArray));
         });
+    };
+};
+
+// Delete note action.
+export const deleteNote = (notesArray, i) => {
+    return (dispatch) => {
+        let user = JSON.parse(localStorage.getItem('user'));
+
+        // Removing a note from board.
+        firebase.database().ref('users').child(user.uid).child('notes').child((notesArray.getIn([i, "id"]))).remove();
+        const newNotesArray = notesArray.delete(i);
+        dispatch(setNotes(newNotesArray));
     };
 };
 
