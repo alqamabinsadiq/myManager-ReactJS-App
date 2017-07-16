@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import firebase from 'firebase';
 import { connect } from 'react-redux';
 // material-ui components
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -48,22 +47,6 @@ class Board extends Component {
                 });
         }
     }
-
-    // createArray(id, text, title) {
-    //     let notesArray = this.state.notes;
-    //     notesArray.push({
-    //         id,
-    //         text,
-    //         title
-    //     });
-    //     return notesArray;
-
-    // }
-
-    // nextId() {
-    //     this.uniqueId = this.uniqueId || 0;
-    //     return this.uniqueId++;
-    // }
 
     // Removes a note.
     _remove(i) {

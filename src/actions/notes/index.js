@@ -4,7 +4,8 @@ import firebase from 'firebase';
 export const actions = {
     SET_CURRENT_NOTE: "SET_CURRENT_NOTE",
     GET_ALL_NOTES: "GET_ALL_NOTES",
-    ADD_NOTE: "ADD_NOTE"
+    ADD_NOTE: "ADD_NOTE",
+    UPDATE_NOTE: "UPDATE_NOTE"
 };
 
 let notes = [];
@@ -65,3 +66,19 @@ export const addNote = (text) => {
 };
 };
 
+// set Current note action
+export const setCurrentNote = (index) => ({
+    type: actions.SET_CURRENT_NOTE,
+    data: index
+});
+
+
+// export const updateNote = (data) => {
+//     return(dispatch) => {
+//         let user = JSON.parse(localStorage.getItem('user'));
+//         firebase.database().ref('users').child(user.uid).child('notes').child(arr[i].id).set({
+//             note: newText,
+//             title: newTitle
+//         });
+//     };
+// }
