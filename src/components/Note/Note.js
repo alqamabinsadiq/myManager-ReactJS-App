@@ -51,7 +51,7 @@ class Note extends Component {
 }
 
 Note.propTypes = {
-    children: PropTypes.array,
+    children: PropTypes.string,
     title: PropTypes.string,
     index: PropTypes.number,
     onRemove: PropTypes.func,

@@ -3,7 +3,8 @@ import firebase from 'firebase';
 // action types
 export const actions = {
     SET_CURRENT_NOTE: "SET_CURRENT_NOTE",
-    GET_ALL_NOTES: "GET_ALL_NOTES"
+    GET_ALL_NOTES: "GET_ALL_NOTES",
+    ADD_NOTE: "ADD_NOTE"
 };
 
 let notes = [];
@@ -28,6 +29,7 @@ export const getNotes = () => {
 
     // Database reference
     const dbRef = firebase.database().ref('users').child(user.uid).child('notes');
+
     return (dispatch) => {
         // Getting notes from firebase database.
         dbRef.on('child_added', snap => {
@@ -51,8 +53,15 @@ export const deleteNote = (notesArray, i) => {
     };
 };
 
-// export const setCurrentNote = ({index, title, note}) => {
-//     return(dispatch) => {
+// Adds a new note.
+export const addNote = (text) => {
+    return() => {
+    let user = JSON.parse(localStorage.getItem('user'));
 
-//     };
-// };
+    firebase.database().ref('users').child(user.uid).child('notes').push({
+        note: text,
+        title: "Enter a title"
+    });
+};
+};
+

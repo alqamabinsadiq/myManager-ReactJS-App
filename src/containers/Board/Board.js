@@ -6,7 +6,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import CircularProgress from 'material-ui/CircularProgress';
 import Note from '../../components/Note/Note';
-import { getNotes } from '../../actions/notes';
+import { getNotes, deleteNote, addNote } from '../../actions/notes';
 
 class Board extends Component {
     constructor(props) {
@@ -39,6 +39,7 @@ class Board extends Component {
 
     }
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps.allNotes);
         if (nextProps.allNotes !== this.props.allNotes) {
             let notesArray = nextProps.allNotes;
                 this.setState({
@@ -48,36 +49,38 @@ class Board extends Component {
         }
     }
 
-    createArray(id, text, title) {
-        let notesArray = this.state.notes;
-        notesArray.push({
-            id,
-            text,
-            title
-        });
-        return notesArray;
+    // createArray(id, text, title) {
+    //     let notesArray = this.state.notes;
+    //     notesArray.push({
+    //         id,
+    //         text,
+    //         title
+    //     });
+    //     return notesArray;
 
-    }
+    // }
 
-    nextId() {
-        this.uniqueId = this.uniqueId || 0;
-        return this.uniqueId++;
-    }
+    // nextId() {
+    //     this.uniqueId = this.uniqueId || 0;
+    //     return this.uniqueId++;
+    // }
 
     // Removes a note.
     _remove(i) {
         let notesArray = this.state.notes;
-        firebase.database().ref('users').child(this.user.uid).child('notes').child((notesArray.getIn([i,"id"]))).remove();
-        const newNotesArray = notesArray.delete(i);
-        this.setState({ notes: newNotesArray });
+        this.props.deleteNote(notesArray, i);
+        // firebase.database().ref('users').child(this.user.uid).child('notes').child((notesArray.getIn([i,"id"]))).remove();
+        // const newNotesArray = notesArray.delete(i);
+        // this.setState({ notes: newNotesArray });
     }
 
     // Add a note directly to firebase database.
     _addNote(text) {
-        firebase.database().ref('users').child(this.user.uid).child('notes').push({
-            note: text,
-            title: "Enter a title"
-        });
+        this.props.addNote(text);
+        // firebase.database().ref('users').child(this.user.uid).child('notes').push({
+        //     note: text,
+        //     title: "Enter a title"
+        // });
     }
 
     _eachNote(note,i) {
@@ -86,12 +89,11 @@ class Board extends Component {
                 index={i}
                 onRemove={this.remove}
                 title={note.get("title")}
-            >{note.get("note")}</Note>
+            >{note.get("text")}</Note>
         );
     }
 
     render() {
-        console.log(this.state.loading);
         if (this.state.loading)
             return (
                 <div className="notesBoard">
@@ -117,7 +119,9 @@ class Board extends Component {
 Board.propTypes = {
     setUserToken: PropTypes.func,
     getNotes: PropTypes.func,
-    allNotes: PropTypes.object
+    allNotes: PropTypes.object,
+    deleteNote: PropTypes.func,
+    addNote: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
@@ -126,4 +130,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { getNotes })(Board);
+export default connect(mapStateToProps, { getNotes, deleteNote, addNote })(Board);
