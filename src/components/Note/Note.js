@@ -6,6 +6,7 @@ import { setCurrentNote } from '../../actions/notes';
 import Draggable from 'react-draggable';
 import IconButton from 'material-ui/IconButton';
 import ActionDelete from 'material-ui/svg-icons/action/delete-forever';
+import 'animate.css';
 class Note extends Component {
     constructor(props) {
         super(props);
@@ -26,7 +27,7 @@ class Note extends Component {
     render() {
         return (
             <Draggable bounds="parent">
-                <div className="note handle"
+                <div className="note handle zoomIn"
                     style={this.style}>
                     <div id="contentTitle">
                         <div>{this.props.title}</div>

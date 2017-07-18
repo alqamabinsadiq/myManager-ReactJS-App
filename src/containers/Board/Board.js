@@ -38,7 +38,6 @@ class Board extends Component {
 
     }
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.allNotes);
         if (nextProps.allNotes !== this.props.allNotes) {
             let notesArray = nextProps.allNotes;
                 this.setState({
