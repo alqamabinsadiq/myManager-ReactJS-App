@@ -181,6 +181,9 @@ body{
   
   position: fixed;
   }
+.intro-text-small{
+    font-size: 20px;
+  }
 }
 @media screen and (max-width: 480px) {
   #gtco-header .btn {
@@ -192,6 +195,9 @@ body{
   background: linear-gradient(to top right,#ae8fff,#b04b50);
   position: fixed;
   }
+.intro-text-small{
+    font-size: 20px;
+  }
 }
 
 #gtco-header .mt-text {
@@ -199,6 +205,9 @@ body{
   margin-bottom: 3em;
 }
 @media screen and (max-width: 768px) {
+  .intro-text-small{
+    font-size: 20px;
+  }
   #gtco-header .mt-text {
     margin-top: 0;
 
@@ -228,6 +237,9 @@ body{
     font-size: 34px;
     line-height: 1.2;
     margin-bottom: 10px;
+  }
+  .intro-text-small{
+    font-size: 20px;
   }
 }
 #gtco-header h2 {
@@ -343,6 +355,9 @@ body{
 @media screen and (max-width: 768px) {
   .row-mt-15em {
     margin-top: 7em;
+  }
+  .intro-text-small{
+    font-size: 20px;
   }
 }
 
